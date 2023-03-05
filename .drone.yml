@@ -1,0 +1,18 @@
+type: docker
+kind: pipeline
+name: default
+
+steps:
+  - name: docker-prod
+    image: image.swokiz.dev/plugins/kaniko
+    depends_on: [ clone ]
+    environment:
+      PLUGIN_CONFIG:
+        from_secret: image-swokiz-dev-json
+    settings:
+      repo: docker-push-test.swokiz.dev/plugins/trivy
+      registry: docker-push-test.swokiz.dev
+      dockerfile: Dockerfile
+
+image_pull_secrets:
+  - image-swokiz-dev-json
