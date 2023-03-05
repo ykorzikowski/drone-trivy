@@ -9,10 +9,21 @@ steps:
     environment:
       PLUGIN_CONFIG:
         from_secret: image-swokiz-dev-json
+      TRIVY_ARCH: Linux-64bit
+      TRIVY_VERSION: ${DRONE_TAG}
     settings:
-      repo: docker-push-test.swokiz.dev/plugins/trivy
-      registry: docker-push-test.swokiz.dev
+      repo: docker-push-prod.swokiz.dev/plugins/trivy
+      registry: docker-push-prod.swokiz.dev
       dockerfile: Dockerfile
+      tags:
+        - latest
+        - ${DRONE_TAG}
+      build_args:
+        - TRIVY_ARCH
+        - TRIVY_VERSION
+    when:
+      event:
+      - tag
 
 image_pull_secrets:
   - image-swokiz-dev-json

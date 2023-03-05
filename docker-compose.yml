@@ -1,7 +1,0 @@
-services:
-  drone-trivy:
-    build:
-      context: .
-      args:
-          TRIVY_VERSION: 0.38.1
-          TRIVY_ARCH: Linux-64bit
